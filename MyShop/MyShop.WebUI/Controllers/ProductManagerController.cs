@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 //add for using references to our models & in memory repository
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using MyShop.DataAccess.InMemory;
 
 namespace MyShop.WebUI.Controllers
@@ -13,10 +14,13 @@ namespace MyShop.WebUI.Controllers
     {
         //at th top of the controller we need to create an instance of the product repository
         ProductRepository context;
+        //to load our product categories from the database
+        ProductCategoryRepository productCategories;    //& we need to initializ that with the constructor
 
         //we need to create a construct for our controller for initiating the repository
         public ProductManagerController() {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
          
         // GET: ProductManager
@@ -27,8 +31,12 @@ namespace MyShop.WebUI.Controllers
 
         //add a method that create our product
         public ActionResult Create() {
-            Product product = new Product();
-            return View(product);
+            //for creating the list categories, first create a reference to the product manager view model
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+
+            viewModel.Product = new Product();      //initially an empty product
+            viewModel.ProductCategories = productCategories.Collection();
+            return View(viewModel);
         }
 
         //the second page will be to have those details posted
@@ -52,7 +60,11 @@ namespace MyShop.WebUI.Controllers
                 return HttpNotFound();
             }
             else {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategories.Collection();
+
+                return View(viewModel);
             }
         }
 
