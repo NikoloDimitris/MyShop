@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MyShop.Core.Models
 {
-    public class ProductCategory
+    public class ProductCategory : BaseEntity
     {
-        public string Id { get; set; }
+        //public string Id { get; set; }        //remove it at lecture 64, 17:20
         public string Category { get; set; }
 
-        //create a constructor to generate the Id whenever a new model is created
-        public ProductCategory() {
-            this.Id = Guid.NewGuid().ToString();
-        }
+        ////create a constructor to generate the Id whenever a new model is created
+        //public ProductCategory() {
+        //    this.Id = Guid.NewGuid().ToString();
+        //} //remove it at lecture 64, 17:20
     }
 }
