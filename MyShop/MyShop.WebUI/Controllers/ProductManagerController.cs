@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyShop.Core.Contracts;
 //add for using references to our models & in memory repository
 using MyShop.Core.Models;
 using MyShop.Core.ViewModels;
@@ -13,14 +14,19 @@ namespace MyShop.WebUI.Controllers
     public class ProductManagerController : Controller
     {
         //at th top of the controller we need to create an instance of the product repository
-        InMemoryRepository<Product> context;
+        //InMemoryRepository<Product> context;    //change it at Lecture 65, 08:18
+        IRepository<Product> context;
+
         //to load our product categories from the database
-        InMemoryRepository<ProductCategory> productCategories;    //& we need to initializ that with the constructor
+        /*InMemoryRepository<ProductCategory> productCategories; */   //& we need to initializ that with the constructor //change it at Lecture 65, 08:18
+        IRepository<ProductCategory> productCategories;
 
         //we need to create a construct for our controller for initiating the repository
-        public ProductManagerController() {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+        public ProductManagerController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext) {
+            //context = new InMemoryRepository<Product>();      changed lines 26.27 at lecture 65,10:54
+            //productCategories = new InMemoryRepository<ProductCategory>();
+            context = productContext;
+            productCategories = productCategoryContext;
         }
          
         // GET: ProductManager

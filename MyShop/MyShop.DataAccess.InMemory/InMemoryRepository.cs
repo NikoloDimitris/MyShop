@@ -1,4 +1,5 @@
-﻿using MyShop.Core.Models;
+﻿using MyShop.Core.Contracts;
+using MyShop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace MyShop.DataAccess.InMemory
 {
     //defining <> a place holder, we create the generic class, it is a referencethrought the rest of the code
-    public class InMemoryRepository <T> where T : BaseEntity     
+    public class InMemoryRepository <T> : IRepository<T> where T : BaseEntity     
     {
         ObjectCache cache = MemoryCache.Default;
         //next we want the internal list of T
@@ -31,6 +32,7 @@ namespace MyShop.DataAccess.InMemory
             cache[className] = items;
         }
 
+ 
 
         //& now we want the standard methods for the insert, update, edit, delete etc..
         public void Insert(T t) {
