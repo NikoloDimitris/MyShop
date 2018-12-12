@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,11 +48,17 @@ namespace MyShop.WebUI.Controllers
 
         //the second page will be to have those details posted
         [HttpPost]
-        public ActionResult Create (Product product) {
+        public ActionResult Create (Product product, HttpPostedFileBase file) {
             if (!ModelState.IsValid) {
                 return View(product);
             }
             else {
+
+                if (file != null) {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
+
                 context.Insert(product);
                 context.Commit();
 
@@ -76,7 +83,7 @@ namespace MyShop.WebUI.Controllers
 
         //next edit page which will take in the product we are editing
         [HttpPost]
-        public ActionResult Edit(Product product, string Id) {
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file) {
             Product productToEdit = context.Find(Id);
             if (productToEdit == null)
             {
@@ -87,9 +94,14 @@ namespace MyShop.WebUI.Controllers
                 if (!ModelState.IsValid) {
                     return View(product);
                 }
+
+                if (file != null) {
+                    productToEdit.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToEdit.Image);
+                }
                 productToEdit.Category = product.Category;
                 productToEdit.Description = product.Description;
-                productToEdit.Image = product.Image;
+                //productToEdit.Image = product.Image;  //due to HttpPostedFileBase, Lecture 69, 12:10
                 productToEdit.Name = product.Name;
                 productToEdit.Price = product.Price;
 
