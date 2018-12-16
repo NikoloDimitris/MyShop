@@ -21,6 +21,8 @@ namespace MyShop.DataAccess.SQL
         //store the models in the database, Lecture 73,5:30
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        //lecture 82, 04:06
+        public DbSet<Customer> Customers { get; set; }
 
     }
 }
