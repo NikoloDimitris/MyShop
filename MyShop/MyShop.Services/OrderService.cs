@@ -39,5 +39,22 @@ namespace MyShop.Services
         //{
         //    throw new NotImplementedException();
         //}
+
+        //Lecture 87,06;53, adding new methods for expanding the Order Service
+        public List<Order> GetOrderList()
+        {
+            return orderContext.Collection().ToList();
+        }
+
+        public Order GetOrder(string Id)
+        {
+            return orderContext.Find(Id);
+        }
+
+        public void UpdateOrder(Order updatedOrder)
+        {
+            orderContext.Update(updatedOrder);
+            orderContext.Commit();
+        }           //after the new methods we have to update the interface at the core/contracts/ IOrderService
     }
 }
