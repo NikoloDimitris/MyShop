@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MyShop.WebUI.Controllers      //Lecture 87
 {
+    [Authorize(Roles = "Admin")]        //Lecture 89, 09:30++, security reasons of admin
     public class OrderManagerController : Controller
     {
         IOrderService orderService;

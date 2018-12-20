@@ -12,6 +12,7 @@ using MyShop.DataAccess.InMemory;
 
 namespace MyShop.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]        //Lecture 89, 09:30++, security reasons of admin
     public class ProductManagerController : Controller
     {
         //at th top of the controller we need to create an instance of the product repository

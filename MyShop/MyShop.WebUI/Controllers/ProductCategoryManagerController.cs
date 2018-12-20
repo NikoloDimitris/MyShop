@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MyShop.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]        //Lecture 89, 09:30++, security reasons of admin
     public class ProductCategoryManagerController : Controller
     {
         //at th top of the controller we need to create an instance of the product repository
