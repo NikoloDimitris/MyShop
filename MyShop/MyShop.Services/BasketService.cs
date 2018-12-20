@@ -155,5 +155,13 @@ namespace MyShop.Services
                 return model;
             }
         }
+
+        //Lecture 83, 15:39
+        public void ClearBasket(HttpContextBase httpContext)
+        {
+            Basket basket = GetBasket(httpContext, false);
+            basket.BasketItems.Clear();
+            basketContext.Commit();
+        }       //after that we have to copy that to the interface to make it available
     }
 }
